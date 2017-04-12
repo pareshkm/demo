@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.dto.client.ProductDto;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
 
@@ -24,5 +25,13 @@ public class ProductDao {
 	
 	public Product getProductById(long id) {
 		return productRepository.findOne(id);
+	}
+
+	public void saveOrUpdateProduct(Product updatedProduct) {
+		saveProduct(updatedProduct);
+	}
+
+	public List<Product> getAllProducts() {
+		return productRepository.findAll();
 	}
 }
