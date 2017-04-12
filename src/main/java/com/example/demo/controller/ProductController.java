@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.client.CurrentPriceDto;
 import com.example.demo.dto.client.ProductDto;
-import com.example.demo.entity.CurrencyCode;
 import com.example.demo.entity.CurrentPrice;
 import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
@@ -27,24 +25,20 @@ public class ProductController {
 		productDto.setId(id);
 		
 		// Get Product Pricing from Database
-//		Product product = productService.getProductById(id);
-//		CurrentPrice current_price = product.getCurrent_price();
-		
-//		BigDecimal value = current_price.getValue();
-		BigDecimal value = new BigDecimal(13.49).setScale(2, RoundingMode.FLOOR);
-		
-//		String currency_code = current_price.getCurrency_code();
-		String currency_code = "USD";		
+		Product product = productService.getProductById(id);
+		CurrentPrice current_price = product.getCurrent_price();
+		BigDecimal value = current_price.getValue();
+		String currency_code = current_price.getCurrency_code();
 		
 		CurrentPriceDto currentPriceDto = new CurrentPriceDto();
 		currentPriceDto.setValue(value);
 		currentPriceDto.setCurrency_code(currency_code);		
-		productDto.setCurrent_price(currentPriceDto);
+		productDto.setCurrent_price(currentPriceDto);		
 		
 		// Get Product Name from REST Call
 		String productName = productService.getProductNameById(id);
 		productDto.setName(productName);
+		
 		return productDto;
 	}
-
 }

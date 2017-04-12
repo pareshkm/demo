@@ -28,6 +28,7 @@ public class DemoApplication {
 	@PostConstruct
 	public void loadProductData() {
 		List<Product> products = new ArrayList<Product>();
+		
 		Product prd1 = new Product();
 		prd1.setId(13860428);
 		CurrentPrice cp1 = new CurrentPrice();
@@ -41,9 +42,17 @@ public class DemoApplication {
 		CurrentPrice cp2 = new CurrentPrice();
 		cp2.setValue(new BigDecimal(360.57));
 		cp2.setCurrency_code(CurrencyCode.DNR.name());
-		prd1.setCurrent_price(cp2);
+		prd2.setCurrent_price(cp2);
 		products.add(prd2);
 		
-		// productService.saveProducts(products);
+		Product prd3 = new Product();
+		prd3.setId(532727);
+		CurrentPrice cp3 = new CurrentPrice();
+		cp3.setValue(new BigDecimal(1476.68));
+		cp3.setCurrency_code(CurrencyCode.INR.name());
+		prd3.setCurrent_price(cp3);
+		products.add(prd3);
+		
+		productService.saveProducts(products);
 	}
 }
