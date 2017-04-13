@@ -1,6 +1,5 @@
 package com.example.demo.dto.server;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ItemServerDto {
 	private String tcin;
@@ -28,10 +27,8 @@ public class ItemServerDto {
 	private String country_of_origin;
 	private String relationship_type_code;
 	private boolean subscription_eligible;
-	private String estore_item_status_code;
-	
-	@JsonIgnore
-	private String return_policies;
+	private String estore_item_status_code;	
+	private Object return_policies;
 	
 	public String getTcin() {
 		return tcin;
@@ -192,10 +189,10 @@ public class ItemServerDto {
 	public void setEstore_item_status_code(String estore_item_status_code) {
 		this.estore_item_status_code = estore_item_status_code;
 	}
-	public String getReturn_policies() {
+	public Object getReturn_policies() {
 		return return_policies;
 	}
-	public void setReturn_policies(String return_policies) {
+	public void setReturn_policies(Object return_policies) {
 		this.return_policies = return_policies;
 	}
 }
