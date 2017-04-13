@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.ProductDao;
 import com.example.demo.dto.client.CurrentPriceDto;
 import com.example.demo.dto.client.ProductDto;
+import com.example.demo.dto.server.ItemServerDto;
+import com.example.demo.dto.server.ProductDescriptionServerDto;
+import com.example.demo.dto.server.ProductResponseDto;
 import com.example.demo.dto.server.ProductServerDto;
 import com.example.demo.entity.CurrentPrice;
 import com.example.demo.entity.Product;
@@ -40,9 +43,21 @@ public class ProductServiceImpl implements ProductService {
 		
 	@Override
 	public String getProductNameById(long id) {
-		ProductServerDto productDto = restClient.fetchProductNameById(id);
-		// Retrieve product name from productDto and return
-		return "Mock Product Name";
+		String title = "Unavailable";
+		ProductResponseDto responseDto = restClient.fetchProductNameById(id);
+		if ( responseDto != null ) {
+			ProductServerDto productDto = responseDto.getProduct();
+			if ( productDto != null ) {
+				ItemServerDto item = productDto.getItem();
+				if ( item != null ) {
+					ProductDescriptionServerDto product_description = item.getProduct_description();
+					if ( product_description != null ) {
+						title = product_description.getTitle();
+					}
+				}
+			}
+		}
+		return title;
 	}
 	
 	@Override

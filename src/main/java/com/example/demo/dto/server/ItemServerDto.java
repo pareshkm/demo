@@ -1,5 +1,7 @@
 package com.example.demo.dto.server;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ItemServerDto {
 	private String tcin;
 	private BundleComponentsServerDto bundle_components;
@@ -27,6 +29,8 @@ public class ItemServerDto {
 	private String relationship_type_code;
 	private boolean subscription_eligible;
 	private String estore_item_status_code;
+	
+	@JsonIgnore
 	private String return_policies;
 	
 	public String getTcin() {

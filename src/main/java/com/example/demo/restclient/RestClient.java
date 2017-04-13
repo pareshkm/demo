@@ -7,22 +7,25 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.demo.dto.server.DeepRedLabelsServerDto;
 import com.example.demo.dto.server.ItemServerDto;
 import com.example.demo.dto.server.ProductDescriptionServerDto;
+import com.example.demo.dto.server.ProductResponseDto;
 import com.example.demo.dto.server.ProductServerDto;
 
 @Component
 public class RestClient {
 	
-	public ProductServerDto fetchProductNameById(long id) {
+	public ProductResponseDto fetchProductNameById(long id) {
 		RestTemplate rest = new RestTemplate();
-		ProductServerDto productDto = null;
+		ProductResponseDto responseDto = null;
 		String url = "http://redsky.target.com/v1/pdp/tcin/{id}";
 		
 		// Adding Path parameters
 		Map<String, String> uriParams = new HashMap<String, String>();
-		// TODO: Remove hard coding of id after done with testing
+		
+		// TODO: Hard-Coded ID value need to be removed.
+		// This URL doesn't work for any other example IDs given in the case study document except 13860428
+		// so hard-coding the id to 13860428 here. In real world scenario, obviously it won't be hard coded.
 		// uriParams.put("id", id+"");
 		uriParams.put("id", "13860428");
 		
@@ -34,29 +37,9 @@ public class RestClient {
 
 		System.out.println("URL="+builder.buildAndExpand(uriParams).toUri());
 		
-		productDto = rest.getForObject(builder.buildAndExpand(uriParams).toUri(), ProductServerDto.class);
-		if ( productDto == null ) {
-			System.out.println("In RestClient productDto is null");
-		} else {
-			System.out.println("In RestClient productDto is not null");
-			ItemServerDto item = productDto.getItem();
-			if ( item == null ) {
-				System.out.println("Item is null");
-			} else {
-				System.out.println("Item is not null");
-				ProductDescriptionServerDto product_description = item.getProduct_description();
-				String title = product_description.getTitle();
-				if ( title == null ) {
-					System.out.println("title is null");
-				} else {
-					System.out.println("title is not null, title="+title);
-				}
-			}
-			
-		}
-		System.out.println("**************************");
-		System.out.println("**************************");
-		return productDto;
+		responseDto = rest.getForObject(builder.buildAndExpand(uriParams).toUri(), ProductResponseDto.class);
+		
+		return responseDto;
 	}
 
 }

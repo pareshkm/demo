@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class CurrentPrice {
-	private BigDecimal value;
+	private BigDecimal value;	
 	private String currency_code;
 	
 	public String getCurrency_code() {
