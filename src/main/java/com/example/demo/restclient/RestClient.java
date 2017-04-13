@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.demo.dto.server.ItemServerDto;
-import com.example.demo.dto.server.ProductDescriptionServerDto;
 import com.example.demo.dto.server.ProductResponseDto;
-import com.example.demo.dto.server.ProductServerDto;
 
 @Component
 public class RestClient {
@@ -21,13 +18,13 @@ public class RestClient {
 		String url = "http://redsky.target.com/v1/pdp/tcin/{id}";
 		
 		// Adding Path parameters
-		Map<String, String> uriParams = new HashMap<String, String>();
+		Map<String, Long> uriParams = new HashMap<String, Long>();
 		
 		// TODO: Hard-Coded ID value need to be removed.
 		// This URL doesn't work for any other example IDs given in the case study document except 13860428
 		// so hard-coding the id to 13860428 here. In real world scenario, obviously it won't be hard coded.
-		// uriParams.put("id", id+"");
-		uriParams.put("id", "13860428");
+		// uriParams.put("id", id);
+		uriParams.put("id", 13860428L);
 		
 		// Query parameters
 		String queryParam = "taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics";
@@ -41,5 +38,4 @@ public class RestClient {
 		
 		return responseDto;
 	}
-
 }
