@@ -9,6 +9,16 @@ public class CurrentPrice {
 	private BigDecimal value;	
 	private String currency_code;
 	
+	public CurrentPrice(BigDecimal value, String currency_code) {
+		super();
+		this.value = value;
+		this.currency_code = currency_code;
+	}
+	
+	public CurrentPrice() {
+		
+	}
+	
 	public String getCurrency_code() {
 		return currency_code;
 	}

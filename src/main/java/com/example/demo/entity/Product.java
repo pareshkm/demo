@@ -13,6 +13,16 @@ public class Product {
 	@Embedded
 	private CurrentPrice current_price;
 	
+	public Product(long id, CurrentPrice current_price) {
+		super();
+		this.id = id;
+		this.current_price = current_price;
+	}
+	
+	public Product() {
+		
+	}
+	
 	public long getId() {
 		return id;
 	}

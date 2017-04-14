@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class ProductController {
 		String currency_code = current_price.getCurrency_code();
 		
 		CurrentPriceDto currentPriceDto = new CurrentPriceDto();
-		currentPriceDto.setValue(value);
+		currentPriceDto.setValue(value.setScale(2, RoundingMode.FLOOR));
 		currentPriceDto.setCurrency_code(currency_code);		
 		productDto.setCurrent_price(currentPriceDto);		
 		
