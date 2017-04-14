@@ -27,11 +27,6 @@ public class ProductServiceImpl implements ProductService {
 	private RestClient restClient;
 
 	@Override
-	public void saveProduct(Product prd) {
-		productDao.saveProduct(prd);
-	}
-
-	@Override
 	public void saveProducts(List<Product> products) {
 		productDao.saveProducts(products);
 	}
@@ -72,10 +67,5 @@ public class ProductServiceImpl implements ProductService {
 		updatedProduct.setCurrent_price(current_price);
 		
 		productDao.saveOrUpdateProduct(updatedProduct);
-	}
-	
-	@Override
-	public List<Product> getAllProducts() {
-		return productDao.getAllProducts();
 	}
 }

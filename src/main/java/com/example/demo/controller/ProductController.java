@@ -91,10 +91,4 @@ public class ProductController {
 		
 		productService.saveOrUpdateProduct(updatedProductDto);
 	}
-	
-	// TODO: Need to remove after done with my testing
-	@GetMapping("/allProducts")
-	public List<Product> getAllProducts() {
-		return productService.getAllProducts();
-	}
 }

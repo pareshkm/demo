@@ -30,8 +30,4 @@ public class ProductDao {
 	public void saveOrUpdateProduct(Product updatedProduct) {
 		saveProduct(updatedProduct);
 	}
-
-	public List<Product> getAllProducts() {
-		return productRepository.findAll();
-	}
 }
