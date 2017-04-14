@@ -17,6 +17,9 @@ public class RestClient {
 		ProductResponseDto responseDto = null;
 		String url = "http://redsky.target.com/v1/pdp/tcin/{id}";
 		
+		// Used the below Bad URL to test out if the Circuit Breaker pattern worked
+		// String url = "http://redsky.target.com/v1/pdp/{id}";
+		
 		// Adding Path parameters
 		Map<String, Long> uriParams = new HashMap<String, Long>();
 		

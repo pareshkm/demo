@@ -16,6 +16,7 @@ import com.example.demo.dto.server.ProductServerDto;
 import com.example.demo.entity.CurrentPrice;
 import com.example.demo.entity.Product;
 import com.example.demo.restclient.RestClient;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -35,7 +36,8 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProductById(long id) {
 		return productDao.getProductById(id);
 	}
-		
+	
+	@HystrixCommand(fallbackMethod = "defaultTitle")
 	@Override
 	public String getProductNameById(long id) {
 		String title = "Unavailable";
@@ -53,6 +55,10 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return title;
+	}
+	
+	public String defaultTitle(long id) {
+	    return "Product Name Unavailable Temporarily";
 	}
 	
 	@Override
