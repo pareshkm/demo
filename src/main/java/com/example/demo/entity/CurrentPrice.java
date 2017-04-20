@@ -1,11 +1,15 @@
 package com.example.demo.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class CurrentPrice {
+public class CurrentPrice implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private BigDecimal value;	
 	private String currency_code;
 	

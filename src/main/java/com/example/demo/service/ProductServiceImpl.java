@@ -4,6 +4,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ProductDao;
@@ -32,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
 		productDao.saveProducts(products);
 	}
 
+	@Cacheable(value="productsCache", key="#id")
 	@Override
 	public Product getProductById(long id) {
 		return productDao.getProductById(id);
@@ -74,4 +76,5 @@ public class ProductServiceImpl implements ProductService {
 		
 		productDao.saveOrUpdateProduct(updatedProduct);
 	}
+	
 }

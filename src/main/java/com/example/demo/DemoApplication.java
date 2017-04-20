@@ -2,7 +2,9 @@ package com.example.demo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 
@@ -33,6 +35,10 @@ public class DemoApplication {
 		product1.setId(13860428);
 		CurrentPrice currentPrice1 = new CurrentPrice();
 		currentPrice1.setValue(new BigDecimal(100.53));
+		
+		// Alternatively, we could have used Java Currency class to get the Currency Code, instead of getting it from our CurrencyCode enum.
+		// Just a matter of preferences.
+		// currentPrice1.setCurrency_code(Currency.getInstance(Locale.US).getCurrencyCode());
 		currentPrice1.setCurrency_code(CurrencyCode.USD.name());
 		product1.setCurrent_price(currentPrice1);
 		products.add(product1);
