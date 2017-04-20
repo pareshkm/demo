@@ -2,6 +2,10 @@ package com.example.demo.service;
 
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -39,11 +43,38 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProductById(id);
 	}
 	
+//	@HystrixCommand(fallbackMethod = "defaultTitle")
+//	@Override
+//	public String getProductNameById(long id) {
+//		String title = "Unavailable";
+//		ProductResponseDto responseDto = restClient.fetchProductNameById(id);
+//		if ( responseDto != null ) {
+//			ProductServerDto productDto = responseDto.getProduct();
+//			if ( productDto != null ) {
+//				ItemServerDto item = productDto.getItem();
+//				if ( item != null ) {
+//					ProductDescriptionServerDto product_description = item.getProduct_description();
+//					if ( product_description != null ) {
+//						title = product_description.getTitle();
+//					}
+//				}
+//			}
+//		}
+//		return title;
+//	}
+	
 	@HystrixCommand(fallbackMethod = "defaultTitle")
 	@Override
 	public String getProductNameById(long id) {
 		String title = "Unavailable";
-		ProductResponseDto responseDto = restClient.fetchProductNameById(id);
+		CompletableFuture<ProductResponseDto> futureResponse = CompletableFuture.supplyAsync(() -> restClient.fetchProductNameById(id));
+		ProductResponseDto responseDto = null;
+		try {
+			responseDto = futureResponse.get(2000, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			title = "Product Name Unavailable";
+			e.printStackTrace();
+		}
 		if ( responseDto != null ) {
 			ProductServerDto productDto = responseDto.getProduct();
 			if ( productDto != null ) {
